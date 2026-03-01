@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+
+  // Silence the "webpack config present but no turbopack config" warning in dev.
+  // next-pwa injects a webpack plugin, but it is disabled in development entirely
+  // (disable: NODE_ENV === 'development'), so Turbopack can run without conflict.
+  // Production builds use --webpack explicitly to let Workbox do its job.
+  turbopack: {},
 };
 
 export default withPWA({

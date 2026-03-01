@@ -9,7 +9,31 @@ import { ThemeToggle } from '@/components/theme-toggle';
 
 export function ActionBar() {
   const router = useRouter();
-  const { language, setLanguage } = useDocumentStore();
+  const { language, setLanguage, commonInfo, clientInfo, customerType } = useDocumentStore();
+
+  const handlePrint = () => {
+    // Build default Save-As filename: YYMMDD_Name_Location
+    const date = commonInfo.eventDate;
+    const dateStr = date
+      ? `${String(date.getFullYear()).slice(-2)}${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}`
+      : 'NoDate';
+    const name = customerType === 'corporate'
+      ? (clientInfo.companyName || 'NoName')
+      : (clientInfo.customerName || 'NoName');
+    const location = commonInfo.location || 'NoLocation';
+
+    const originalTitle = document.title;
+    document.title = `${dateStr}_${name}_${location}`;
+
+    // Restore original title once the print dialog is dismissed
+    const restore = () => {
+      document.title = originalTitle;
+      window.removeEventListener('afterprint', restore);
+    };
+    window.addEventListener('afterprint', restore);
+
+    window.print();
+  };
 
   return (
     <div className="print-hidden flex flex-wrap items-center justify-center gap-3 mb-6">
@@ -26,7 +50,7 @@ export function ActionBar() {
       {/* Print */}
       <Button
         className="gap-2"
-        onClick={() => window.print()}
+        onClick={handlePrint}
       >
         <Printer className="h-4 w-4" />
         พิมพ์เอกสาร

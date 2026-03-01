@@ -45,6 +45,9 @@ export function CommonInfoForm() {
                 mode="single"
                 selected={commonInfo.eventDate ?? undefined}
                 onSelect={(date) => updateCommonInfo({ eventDate: date ?? null })}
+                captionLayout="dropdown"
+                fromYear={2020}
+                toYear={2035}
                 initialFocus
               />
             </PopoverContent>
