@@ -25,6 +25,14 @@ import type {
   PhotoSize,
 } from '@/lib/types';
 
+function calcEndTime(startTime: string, hours: number, minutes: number): string {
+  const [h, m] = startTime.split(':').map(Number);
+  const totalMinutes = h * 60 + m + hours * 60 + minutes;
+  const endH = Math.floor(totalMinutes / 60) % 24;
+  const endM = totalMinutes % 60;
+  return `${String(endH).padStart(2, '0')}:${String(endM).padStart(2, '0')}`;
+}
+
 interface ServiceFormProps {
   entry: ServiceEntry;
   index: number;
@@ -113,8 +121,12 @@ function StandardServiceForm({
           <Input
             type="number"
             min={0}
-            value={f.hours}
-            onChange={(e) => update({ hours: parseInt(e.target.value) || 0 })}
+            value={f.hours === 0 ? '' : f.hours}
+            onChange={(e) => {
+              const hours = parseInt(e.target.value) || 0;
+              update({ hours, endTime: calcEndTime(f.startTime, hours, f.minutes) });
+            }}
+            placeholder="0"
             className="w-20"
           />
           <span className="text-xs text-muted-foreground">ชม.</span>
@@ -122,8 +134,12 @@ function StandardServiceForm({
             type="number"
             min={0}
             max={59}
-            value={f.minutes}
-            onChange={(e) => update({ minutes: parseInt(e.target.value) || 0 })}
+            value={f.minutes === 0 ? '' : f.minutes}
+            onChange={(e) => {
+              const minutes = parseInt(e.target.value) || 0;
+              update({ minutes, endTime: calcEndTime(f.startTime, f.hours, minutes) });
+            }}
+            placeholder="0"
             className="w-20"
           />
           <span className="text-xs text-muted-foreground">นาที</span>
@@ -145,7 +161,10 @@ function StandardServiceForm({
         <Input
           type="time"
           value={f.startTime}
-          onChange={(e) => update({ startTime: e.target.value })}
+          onChange={(e) => {
+            const startTime = e.target.value;
+            update({ startTime, endTime: calcEndTime(startTime, f.hours, f.minutes) });
+          }}
         />
       </div>
 
@@ -166,11 +185,11 @@ function StandardServiceForm({
           type="number"
           min={0}
           step={0.01}
-          value={priceDisabled ? '' : f.price}
+          value={priceDisabled ? '' : (f.price === 0 ? '' : f.price)}
           onChange={(e) => update({ price: parseFloat(e.target.value) || 0 })}
           disabled={priceDisabled}
           className={cn(priceDisabled && 'bg-muted text-muted-foreground')}
-          placeholder={priceDisabled ? 'ราคารวมใน Bundle' : ''}
+          placeholder={priceDisabled ? 'ราคารวมใน Bundle' : '0'}
         />
       </div>
 
@@ -279,11 +298,11 @@ function StickerlineForm({
           type="number"
           min={0}
           step={0.01}
-          value={priceDisabled ? '' : f.price}
+          value={priceDisabled ? '' : (f.price === 0 ? '' : f.price)}
           onChange={(e) => update({ price: parseFloat(e.target.value) || 0 })}
           disabled={priceDisabled}
           className={cn(priceDisabled && 'bg-muted text-muted-foreground')}
-          placeholder={priceDisabled ? 'ราคารวมใน Bundle' : ''}
+          placeholder={priceDisabled ? 'ราคารวมใน Bundle' : '0'}
         />
       </div>
       <div className="space-y-1 sm:col-span-2">
@@ -356,8 +375,9 @@ function AddOnForm({
               type="number"
               min={0}
               step={0.01}
-              value={item.price}
+              value={item.price === 0 ? '' : item.price}
               onChange={(e) => updateItem(idx, { price: parseFloat(e.target.value) || 0 })}
+              placeholder="0"
             />
           </div>
           {f.items.length > 1 && (
@@ -411,9 +431,10 @@ function BundleForm({
           type="number"
           min={0}
           step={0.01}
-          value={f.price}
+          value={f.price === 0 ? '' : f.price}
           onChange={(e) => update({ price: parseFloat(e.target.value) || 0 })}
           className="border-primary/40 focus-visible:ring-primary"
+          placeholder="0"
         />
       </div>
       <div className="space-y-1">

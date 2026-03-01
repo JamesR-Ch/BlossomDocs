@@ -67,7 +67,7 @@ export const DEFAULT_COMMON_INFO: CommonInfo = {
   eventDate: null,
   guestCount: 200,
   location: "",
-  travelFee: 500.0,
+  travelFee: 0,
   deposit: 3000.0,
   remarks: "",
 };

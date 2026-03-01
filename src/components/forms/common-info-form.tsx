@@ -82,8 +82,9 @@ export function CommonInfoForm() {
             type="number"
             min={0}
             step={0.01}
-            value={commonInfo.travelFee}
+            value={commonInfo.travelFee === 0 ? '' : commonInfo.travelFee}
             onChange={(e) => updateCommonInfo({ travelFee: parseFloat(e.target.value) || 0 })}
+            placeholder="0"
           />
         </div>
 
@@ -94,8 +95,9 @@ export function CommonInfoForm() {
             type="number"
             min={0}
             step={0.01}
-            value={commonInfo.deposit}
+            value={commonInfo.deposit === 0 ? '' : commonInfo.deposit}
             onChange={(e) => updateCommonInfo({ deposit: parseFloat(e.target.value) || 0 })}
+            placeholder="0"
           />
         </div>
 
