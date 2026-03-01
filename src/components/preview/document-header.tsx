@@ -113,18 +113,18 @@ export function DocumentHeader() {
             {isWedding && (
               <>
                 <InfoRow
-                  label={t("groomName", lang)}
-                  value={
-                    clientInfo.groomName
-                      ? `${t("honorific", lang)} ${clientInfo.groomName}`
-                      : "-"
-                  }
-                />
-                <InfoRow
                   label={t("brideName", lang)}
                   value={
                     clientInfo.brideName
                       ? `${t("honorific", lang)} ${clientInfo.brideName}`
+                      : "-"
+                  }
+                />
+                <InfoRow
+                  label={t("groomName", lang)}
+                  value={
+                    clientInfo.groomName
+                      ? `${t("honorific", lang)} ${clientInfo.groomName}`
                       : "-"
                   }
                 />
