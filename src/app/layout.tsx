@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Prompt } from 'next/font/google';
+import { PwaUpdateBanner } from '@/components/pwa-update-banner';
 import './globals.css';
 
 const prompt = Prompt({
@@ -12,6 +13,7 @@ const prompt = Prompt({
 export const metadata: Metadata = {
   title: 'Blossom Pixel — Document Generator',
   description: 'Professional Thai/English business document generator for Blossom Pixel',
+  manifest: '/manifest.json',
 };
 
 export default function RootLayout({
@@ -23,6 +25,7 @@ export default function RootLayout({
     <html lang="th" suppressHydrationWarning>
       <body className={`${prompt.variable} font-sans antialiased`}>
         {children}
+        <PwaUpdateBanner />
       </body>
     </html>
   );
