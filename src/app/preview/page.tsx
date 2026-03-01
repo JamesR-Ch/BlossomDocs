@@ -23,8 +23,8 @@ export default function PreviewPage() {
         {/* Non-printable action bar */}
         <ActionBar />
 
-        {/* A4 Paper */}
-        <div className="a4-paper flex flex-col justify-between">
+        {/* A4 Paper — inline color ensures dark text even in dark mode */}
+        <div className="a4-paper flex flex-col justify-between" style={{ color: 'oklch(0.145 0 0)' }}>
           {/* Top section: header + table */}
           <div className="space-y-5">
             <DocumentHeader />

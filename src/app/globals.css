@@ -131,6 +131,32 @@
   }
 }
 
+/* Force light-mode colors inside A4 paper regardless of dark mode.
+   Both the CSS-variable reset and color !important are needed:
+   - Variables fix semantic utilities (text-foreground, text-muted-foreground, etc.)
+   - color !important fixes elements that inherit from body's dark-mode text-foreground */
+.a4-paper,
+.dark .a4-paper {
+  --foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --muted-foreground: oklch(0.5 0 0);
+  --primary: oklch(0.55 0.2 350);
+  --primary-foreground: oklch(0.99 0 0);
+  --border: oklch(0.91 0.01 350);
+  color: oklch(0.145 0 0) !important;
+}
+
+/* Propagate the forced color to all children via inheritance */
+.a4-paper *,
+.dark .a4-paper * {
+  --foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --muted-foreground: oklch(0.5 0 0);
+  --primary: oklch(0.55 0.2 350);
+  --primary-foreground: oklch(0.99 0 0);
+  --border: oklch(0.91 0.01 350);
+}
+
 /* ============================================
    A4 Print Styles
    ============================================ */

@@ -55,7 +55,7 @@ export const DOC_TITLE_EN: Record<DocumentType, string> = {
 export const SERVICE_LABELS: Record<ServiceType, { th: string; en: string }> = {
   photobooth: { th: "Photobooth", en: "Photobooth" },
   "360video": { th: "360 Video", en: "360 Video" },
-  blessing: { th: "Blessing Video", en: "Blessing Video" },
+  blessing: { th: "VDO Blessing", en: "VDO Blessing" },
   stickerline: { th: "Stickerline", en: "Stickerline" },
   signme: { th: "Sign Me", en: "Sign Me" },
   addon: { th: "Add on", en: "Add-on" },
@@ -162,6 +162,7 @@ export const FOOTER_REMARKS_TH = [
   "กรณีเกิดความเสียหายของอุปกรณ์จากการใช้บริการ ทางฝ่ายผู้ว่าจ้างจะเป็นผู้รับผิดชอบค่าเสียหายตามจริง",
   "ทาง Blossom Pixel ขออนุญาตนำภาพและวิดิโอบางส่วนในงานของลูกค้าไปใช้เผยแพร่ในช่องทางต่างๆของบริษัท เพื่อการประชาสัมพันธ์",
   "เพิ่มชั่วโมง Photobooth มีค่าใช้จ่ายเพิ่มชั่วโมงละ 1,500 บาท (กรุณาแจ้งก่อนวันงานอย่างน้อย 3 วัน) หากแจ้งต่ำกว่า 3 วัน เพิ่มชั่วโมงละ 2,000 บาท",
+  "เพิ่มชั่วโมง 360booth = 2,000 บาท/ชั่วโมง, VDO Blessing = 1,000 บาท/ชั่วโมง และ Sign me = 1,000 บาท/ชั่วโมง",
 ];
 
 export const FOOTER_REMARKS_EN = [
@@ -169,4 +170,5 @@ export const FOOTER_REMARKS_EN = [
   "In case of equipment damage during the service, the client shall be responsible for actual repair/replacement costs.",
   "Blossom Pixel reserves the right to use selected photos and videos from the event for promotional purposes across company channels.",
   "Additional Photobooth hours are charged at 1,500 THB per hour (please notify at least 3 days before the event). If notified less than 3 days in advance, the rate is 2,000 THB per hour.",
+  "Additional hours: 360booth = 2,000 THB/hr, VDO Blessing = 1,000 THB/hr, Sign Me = 1,000 THB/hr.",
 ];
