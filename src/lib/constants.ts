@@ -160,13 +160,13 @@ export const PHOTO_SIZE_OPTIONS = [
 export const FOOTER_REMARKS_TH = [
   'กรณีที่ลูกค้าขอยกเลิกงาน ลูกค้าจะไม่ได้รับเงินมัดจำคืนทุกกรณี',
   'กรณีเกิดความเสียหายของอุปกรณ์จากการใช้บริการ ทางฝ่ายผู้ว่าจ้างจะเป็นผู้รับผิดชอบค่าเสียหายตามจริง',
-  'หากต้องการเพิ่มชั่วโมง มีค่าใช้จ่ายเพิ่มชั่วโมงละ 1,500 บาท',
   'ทาง Blossom Pixel ขออนุญาตนำภาพและวิดิโอบางส่วนในงานของลูกค้าไปใช้เผยแพร่ในช่องทางต่างๆของบริษัท เพื่อการประชาสัมพันธ์',
+  'หากต้องการเพิ่มชั่วโมง มีค่าใช้จ่ายเพิ่มชั่วโมงละ 1,500 บาท',
 ];
 
 export const FOOTER_REMARKS_EN = [
   'In case of event cancellation by the client, the deposit is non-refundable under all circumstances.',
   'In case of equipment damage during the service, the client shall be responsible for actual repair/replacement costs.',
-  'Additional hours are charged at 1,500 THB per hour.',
   'Blossom Pixel reserves the right to use selected photos and videos from the event for promotional purposes across company channels.',
+  'Additional hours are charged at 1,500 THB per hour.',
 ];

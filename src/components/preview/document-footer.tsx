@@ -36,13 +36,22 @@ export function DocumentFooter() {
           <p className="font-bold text-gray-800 mb-1.5">
             {t("footerRemarks", lang)}
           </p>
-          <ol className="list-decimal list-inside space-y-1 text-gray-600 leading-relaxed">
+          <div className="space-y-1 text-gray-600 leading-relaxed">
             {remarks.map((text, i) => (
-              <li key={i} contentEditable suppressContentEditableWarning>
-                {text}
-              </li>
+              <div key={i} className="flex gap-1.5">
+                <span
+                  contentEditable
+                  suppressContentEditableWarning
+                  className="shrink-0"
+                >
+                  {i + 1}.
+                </span>
+                <span contentEditable suppressContentEditableWarning>
+                  {text}
+                </span>
+              </div>
             ))}
-          </ol>
+          </div>
         </div>
       )}
 
