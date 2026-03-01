@@ -16,157 +16,157 @@ import type {
   AddOnFields,
   BundleFields,
   ServiceFields,
-} from './types';
+} from "./types";
 
 // -- Company Information (printed on documents) --
 export const COMPANY = {
-  name: 'Blossom Pixel',
-  address: '198/20 หมู่ 8 ต.บางแก้ว อ.บางพลี จ.สมุทรปราการ 10540',
-  addressEn: '198/20 Moo 8, Bang Kaeo, Bang Phli, Samut Prakan 10540',
-  phone: '093-429-3226',
-  taxId: '1119900400132',
-  logo: '/blossom-logo.png',
+  name: "Blossom Pixel",
+  address: "198/20 หมู่ 8 ต.บางแก้ว อ.บางพลี จ.สมุทรปราการ 10540",
+  addressEn: "198/20 Moo 8, Bang Kaeo, Bang Phli, Samut Prakan 10540",
+  phone: "093-429-3226",
+  taxId: "1119900400132",
+  logo: "/blossom-logo.png",
 } as const;
 
 // -- Document number prefixes --
 export const DOC_PREFIX: Record<DocumentType, string> = {
-  booking: 'CF',
-  quotation: 'QT',
-  invoice: 'IV',
-  receipt: 'RC',
+  booking: "CF",
+  quotation: "QT",
+  invoice: "IV",
+  receipt: "RC",
 };
 
 // -- Thai labels for document types --
 export const DOC_TITLE_TH: Record<DocumentType, string> = {
-  booking: 'ใบจอง',
-  quotation: 'ใบเสนอราคา',
-  invoice: 'Invoice',
-  receipt: 'ใบเสร็จรับเงิน',
+  booking: "ใบจอง",
+  quotation: "ใบเสนอราคา",
+  invoice: "Invoice",
+  receipt: "ใบเสร็จรับเงิน",
 };
 
 export const DOC_TITLE_EN: Record<DocumentType, string> = {
-  booking: 'Booking Confirmation',
-  quotation: 'Quotation',
-  invoice: 'Invoice',
-  receipt: 'Receipt',
+  booking: "Booking Confirmation",
+  quotation: "Quotation",
+  invoice: "Invoice",
+  receipt: "Receipt",
 };
 
 // -- Service display labels --
 export const SERVICE_LABELS: Record<ServiceType, { th: string; en: string }> = {
-  photobooth: { th: 'Photobooth', en: 'Photobooth' },
-  '360video': { th: '360 Video', en: '360 Video' },
-  blessing: { th: 'Blessing Video', en: 'Blessing Video' },
-  stickerline: { th: 'Stickerline', en: 'Stickerline' },
-  signme: { th: 'Sign Me', en: 'Sign Me' },
-  addon: { th: 'Add on', en: 'Add-on' },
-  bundle: { th: 'Bundle Service', en: 'Bundle Service' },
+  photobooth: { th: "Photobooth", en: "Photobooth" },
+  "360video": { th: "360 Video", en: "360 Video" },
+  blessing: { th: "Blessing Video", en: "Blessing Video" },
+  stickerline: { th: "Stickerline", en: "Stickerline" },
+  signme: { th: "Sign Me", en: "Sign Me" },
+  addon: { th: "Add on", en: "Add-on" },
+  bundle: { th: "Bundle Service", en: "Bundle Service" },
 };
 
 // -- Default form values --
 export const DEFAULT_COMMON_INFO: CommonInfo = {
   eventDate: null,
   guestCount: 200,
-  location: '',
+  location: "",
   travelFee: 500.0,
   deposit: 3000.0,
-  remarks: '',
+  remarks: "",
 };
 
 export const DEFAULT_CLIENT_INFO: ClientInfo = {
-  customerName: '',
-  phone: '',
-  groomName: '',
-  brideName: '',
-  companyName: '',
-  taxId: '',
-  companyAddress: '',
+  customerName: "",
+  phone: "",
+  groomName: "",
+  brideName: "",
+  companyName: "",
+  taxId: "",
+  companyAddress: "",
 };
 
 // -- Default service field factories --
-const baseServiceDefaults: Omit<BaseServiceFields, 'serviceName'> = {
+const baseServiceDefaults: Omit<BaseServiceFields, "serviceName"> = {
   hours: 3,
   minutes: 0,
-  setupPoint: 'indoor',
-  startTime: '18:00',
-  endTime: '21:00',
+  setupPoint: "indoor",
+  startTime: "18:00",
+  endTime: "21:00",
   price: 9900.0,
-  extraNotes: '',
+  extraNotes: "",
 };
 
 export function createDefaultServiceFields(type: ServiceType): ServiceFields {
   const label = SERVICE_LABELS[type].th;
   switch (type) {
-    case 'photobooth':
+    case "photobooth":
       return {
-        type: 'photobooth',
+        type: "photobooth",
         serviceName: label,
         ...baseServiceDefaults,
-        photoSize: '2x6',
-        customPhotoSize: '',
+        photoSize: "2x6",
+        customPhotoSize: "",
       } satisfies PhotoboothFields;
-    case '360video':
+    case "360video":
       return {
-        type: '360video',
+        type: "360video",
         serviceName: label,
         ...baseServiceDefaults,
-        packageType: 'standard',
+        packageType: "standard",
       } satisfies Video360Fields;
-    case 'blessing':
+    case "blessing":
       return {
-        type: 'blessing',
+        type: "blessing",
         serviceName: label,
         ...baseServiceDefaults,
       } satisfies BlessingFields;
-    case 'signme':
+    case "signme":
       return {
-        type: 'signme',
+        type: "signme",
         serviceName: label,
         ...baseServiceDefaults,
       } satisfies SignMeFields;
-    case 'stickerline':
+    case "stickerline":
       return {
-        type: 'stickerline',
+        type: "stickerline",
         serviceName: label,
         stickerCount: 12,
         price: 1200.0,
-        extraNotes: '',
+        extraNotes: "",
       } satisfies StickerlineFields;
-    case 'addon':
+    case "addon":
       return {
-        type: 'addon',
+        type: "addon",
         serviceName: label,
-        items: [{ name: '', price: 500.0 }],
+        items: [{ name: "", price: 500.0 }],
       } satisfies AddOnFields;
-    case 'bundle':
+    case "bundle":
       return {
-        type: 'bundle',
+        type: "bundle",
         serviceName: label,
         price: 12900.0,
-        extraNotes: '',
+        extraNotes: "",
       } satisfies BundleFields;
   }
 }
 
 // -- Photo size labels (TH/EN) --
 export const PHOTO_SIZE_OPTIONS = [
-  { value: '2x6' as const, th: '2x6', en: '2x6' },
-  { value: '4x6' as const, th: '4x6', en: '4x6' },
-  { value: '2x6_blessing' as const, th: '2x6 อวยพร', en: '2x6 Blessing' },
-  { value: '4x6_blessing' as const, th: '4x6 อวยพร', en: '4x6 Blessing' },
-  { value: 'custom' as const, th: 'Custom', en: 'Custom' },
+  { value: "2x6" as const, th: "2x6", en: "2x6" },
+  { value: "4x6" as const, th: "4x6", en: "4x6" },
+  { value: "2x6_blessing" as const, th: "2x6 อวยพร", en: "2x6 Blessing" },
+  { value: "4x6_blessing" as const, th: "4x6 อวยพร", en: "4x6 Blessing" },
+  { value: "custom" as const, th: "Custom", en: "Custom" },
 ];
 
 // -- Document footer remarks (Booking/Quotation only) --
 export const FOOTER_REMARKS_TH = [
-  'กรณีที่ลูกค้าขอยกเลิกงาน ลูกค้าจะไม่ได้รับเงินมัดจำคืนทุกกรณี',
-  'กรณีเกิดความเสียหายของอุปกรณ์จากการใช้บริการ ทางฝ่ายผู้ว่าจ้างจะเป็นผู้รับผิดชอบค่าเสียหายตามจริง',
-  'ทาง Blossom Pixel ขออนุญาตนำภาพและวิดิโอบางส่วนในงานของลูกค้าไปใช้เผยแพร่ในช่องทางต่างๆของบริษัท เพื่อการประชาสัมพันธ์',
-  'หากต้องการเพิ่มชั่วโมง มีค่าใช้จ่ายเพิ่มชั่วโมงละ 1,500 บาท',
+  "กรณีที่ลูกค้าขอยกเลิกงาน ลูกค้าจะไม่ได้รับเงินมัดจำคืนทุกกรณี",
+  "กรณีเกิดความเสียหายของอุปกรณ์จากการใช้บริการ ทางฝ่ายผู้ว่าจ้างจะเป็นผู้รับผิดชอบค่าเสียหายตามจริง",
+  "ทาง Blossom Pixel ขออนุญาตนำภาพและวิดิโอบางส่วนในงานของลูกค้าไปใช้เผยแพร่ในช่องทางต่างๆของบริษัท เพื่อการประชาสัมพันธ์",
+  "เพิ่มชั่วโมง Photobooth มีค่าใช้จ่ายเพิ่มชั่วโมงละ 1,500 บาท (กรุณาแจ้งก่อนวันงานอย่างน้อย 3 วัน) หากแจ้งต่ำกว่า 3 วัน เพิ่มชั่วโมงละ 2,000 บาท",
 ];
 
 export const FOOTER_REMARKS_EN = [
-  'In case of event cancellation by the client, the deposit is non-refundable under all circumstances.',
-  'In case of equipment damage during the service, the client shall be responsible for actual repair/replacement costs.',
-  'Blossom Pixel reserves the right to use selected photos and videos from the event for promotional purposes across company channels.',
-  'Additional hours are charged at 1,500 THB per hour.',
+  "In case of event cancellation by the client, the deposit is non-refundable under all circumstances.",
+  "In case of equipment damage during the service, the client shall be responsible for actual repair/replacement costs.",
+  "Blossom Pixel reserves the right to use selected photos and videos from the event for promotional purposes across company channels.",
+  "Additional Photobooth hours are charged at 1,500 THB per hour (please notify at least 3 days before the event). If notified less than 3 days in advance, the rate is 2,000 THB per hour.",
 ];
