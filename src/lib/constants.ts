@@ -80,6 +80,8 @@ export const DEFAULT_CLIENT_INFO: ClientInfo = {
   companyName: "",
   taxId: "",
   companyAddress: "",
+  hasWithholdingTax: true,
+  withholdingTaxRate: 3,
 };
 
 // -- Default service field factories --

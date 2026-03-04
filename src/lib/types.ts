@@ -43,6 +43,8 @@ export interface ClientInfo {
   companyName: string;
   taxId: string;
   companyAddress: string;
+  hasWithholdingTax: boolean;
+  withholdingTaxRate: number;
 }
 
 /** Base fields shared by most services */

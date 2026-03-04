@@ -6,10 +6,17 @@ import type { ServiceEntry, AddOnFields } from '@/lib/types';
 import { PHOTO_SIZE_OPTIONS } from '@/lib/constants';
 
 export function DocumentTable() {
-  const { services, commonInfo, language, hasBundleService, totalAmount } = useDocumentStore();
+  const { services, commonInfo, clientInfo, customerType, documentType, language, hasBundleService, totalAmount } = useDocumentStore();
   const lang = language;
   const bundleActive = hasBundleService();
   const total = totalAmount();
+
+  const isCorporate = customerType === 'corporate';
+  const hasWHT = isCorporate && clientInfo.hasWithholdingTax;
+  // total = net amount (what Blossom Pixel receives)
+  // gross = net / (1 - rate/100), e.g. 9900 / 0.97
+  const grossTotal = hasWHT ? total / (1 - clientInfo.withholdingTaxRate / 100) : total;
+  const whtAmount = hasWHT ? grossTotal - total : 0;
   const remaining = total - commonInfo.deposit;
 
   return (
@@ -18,10 +25,10 @@ export function DocumentTable() {
       <table className="w-full text-[10px] border-collapse">
         <thead>
           <tr className="border-b-2 border-gray-800">
-            <th className="py-1.5 text-center w-8">{t('tableNo', lang)}</th>
-            <th className="py-1.5 text-left pl-2">{t('tableItem', lang)}</th>
-            <th className="py-1.5 text-left pl-2">{t('tableDetails', lang)}</th>
-            <th className="py-1.5 text-right pr-1 w-24">{t('tableAmount', lang)}</th>
+            <th contentEditable suppressContentEditableWarning className="py-1.5 text-center w-8">{t('tableNo', lang)}</th>
+            <th contentEditable suppressContentEditableWarning className="py-1.5 text-left pl-2">{t('tableItem', lang)}</th>
+            <th contentEditable suppressContentEditableWarning className="py-1.5 text-left pl-2">{t('tableDetails', lang)}</th>
+            <th contentEditable suppressContentEditableWarning className="py-1.5 text-right pr-1 w-24">{t('tableAmount', lang)}</th>
           </tr>
         </thead>
         <tbody>
@@ -62,24 +69,51 @@ export function DocumentTable() {
 
       {/* Totals */}
       <div className="border-t-2 border-gray-800 pt-2 text-xs space-y-1">
-        <div className="flex justify-between font-bold">
-          <span>{t('totalAmount', lang)}</span>
-          <span contentEditable suppressContentEditableWarning>
-            {formatCurrency(total)} {t('baht', lang)}
-          </span>
-        </div>
-        <div className="flex justify-between text-gray-600">
-          <span>{t('depositAmount', lang)}</span>
-          <span contentEditable suppressContentEditableWarning>
-            {formatCurrency(commonInfo.deposit)} {t('baht', lang)}
-          </span>
-        </div>
-        <div className="flex justify-between font-bold text-sm border-t pt-1">
-          <span>{t('remainingAmount', lang)}</span>
-          <span contentEditable suppressContentEditableWarning>
-            {formatCurrency(remaining)} {t('baht', lang)}
-          </span>
-        </div>
+        {hasWHT ? (
+          <>
+            <div className="flex justify-between font-bold">
+              <span contentEditable suppressContentEditableWarning>{t('subtotal', lang)}</span>
+              <span contentEditable suppressContentEditableWarning>
+                {formatCurrency(grossTotal)} {t('baht', lang)}
+              </span>
+            </div>
+            <div className="flex justify-between text-gray-600">
+              <span contentEditable suppressContentEditableWarning>{t('withholdingTaxLabel', lang)} {clientInfo.withholdingTaxRate}%</span>
+              <span contentEditable suppressContentEditableWarning>
+                {formatCurrency(whtAmount)} {t('baht', lang)}
+              </span>
+            </div>
+            <div className="flex justify-between font-bold border-t pt-1">
+              <span contentEditable suppressContentEditableWarning>{t('netTotal', lang)}</span>
+              <span contentEditable suppressContentEditableWarning>
+                {formatCurrency(total)} {t('baht', lang)}
+              </span>
+            </div>
+          </>
+        ) : (
+          <div className="flex justify-between font-bold">
+            <span contentEditable suppressContentEditableWarning>{t('totalAmount', lang)}</span>
+            <span contentEditable suppressContentEditableWarning>
+              {formatCurrency(total)} {t('baht', lang)}
+            </span>
+          </div>
+        )}
+        {documentType !== 'invoice' && documentType !== 'receipt' && (
+          <>
+            <div className="flex justify-between text-gray-600">
+              <span contentEditable suppressContentEditableWarning>{t('depositAmount', lang)}</span>
+              <span contentEditable suppressContentEditableWarning>
+                {formatCurrency(commonInfo.deposit)} {t('baht', lang)}
+              </span>
+            </div>
+            <div className="flex justify-between font-bold text-sm border-t pt-1">
+              <span contentEditable suppressContentEditableWarning>{t('remainingAmount', lang)}</span>
+              <span contentEditable suppressContentEditableWarning>
+                {formatCurrency(remaining)} {t('baht', lang)}
+              </span>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

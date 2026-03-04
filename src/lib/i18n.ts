@@ -30,6 +30,9 @@ const translations = {
 
   // -- Totals --
   totalAmount: { th: "รวมทั้งสิ้น", en: "Total Amount" },
+  subtotal: { th: "ยอดรวม", en: "Subtotal" },
+  withholdingTaxLabel: { th: "ภาษีหัก ณ ที่จ่าย", en: "Withholding Tax" },
+  netTotal: { th: "ยอดรวมสุทธิ", en: "Net Total" },
   depositAmount: { th: "เงินมัดจำ", en: "Deposit" },
   remainingAmount: { th: "ยอดคงเหลือ", en: "Remaining Balance" },
   baht: { th: "บาท", en: "THB" },

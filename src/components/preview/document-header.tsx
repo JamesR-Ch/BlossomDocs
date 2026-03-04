@@ -40,9 +40,9 @@ export function DocumentHeader() {
 
         {/* Company info (right-aligned) */}
         <div className="text-right text-[10px] leading-relaxed text-gray-600">
-          <p className="font-semibold text-xs text-gray-800">{COMPANY.name}</p>
-          <p>{lang === "th" ? COMPANY.address : COMPANY.addressEn}</p>
-          <p>
+          <p contentEditable suppressContentEditableWarning className="font-semibold text-xs text-gray-800">{COMPANY.name}</p>
+          <p contentEditable suppressContentEditableWarning>{lang === "th" ? COMPANY.address : COMPANY.addressEn}</p>
+          <p contentEditable suppressContentEditableWarning>
             {t("phone", lang)} {COMPANY.phone} &nbsp; Tax ID : {COMPANY.taxId}
           </p>
         </div>
@@ -62,7 +62,7 @@ export function DocumentHeader() {
       {/* Document number & date row */}
       <div className="flex justify-between text-xs">
         <div className="flex items-baseline gap-1">
-          <span className="text-gray-500">{t("documentNumber", lang)}:</span>
+          <span contentEditable suppressContentEditableWarning className="text-gray-500">{t("documentNumber", lang)}:</span>
           <span
             contentEditable
             suppressContentEditableWarning
@@ -73,7 +73,7 @@ export function DocumentHeader() {
           </span>
         </div>
         <div className="flex items-baseline gap-1">
-          <span className="text-gray-500">{t("documentDate", lang)}:</span>
+          <span contentEditable suppressContentEditableWarning className="text-gray-500">{t("documentDate", lang)}:</span>
           <span
             contentEditable
             suppressContentEditableWarning
@@ -153,7 +153,7 @@ export function DocumentHeader() {
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex gap-2">
-      <span className="text-gray-500 w-36 flex-shrink-0">{label}:</span>
+      <span contentEditable suppressContentEditableWarning className="text-gray-500 w-36 shrink-0">{label}:</span>
       <span
         contentEditable
         suppressContentEditableWarning

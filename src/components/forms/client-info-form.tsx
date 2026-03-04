@@ -57,6 +57,42 @@ export function ClientInfoForm() {
                 placeholder="ที่อยู่บริษัท"
               />
             </div>
+
+            {/* Withholding tax */}
+            <div className="space-y-2 sm:col-span-2">
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="withholding-tax"
+                  checked={clientInfo.hasWithholdingTax}
+                  onChange={(e) =>
+                    updateClientInfo({ hasWithholdingTax: e.target.checked })
+                  }
+                  className="h-4 w-4 accent-primary cursor-pointer"
+                />
+                <Label htmlFor="withholding-tax" className="cursor-pointer">
+                  มีภาษีหัก ณ ที่จ่าย
+                </Label>
+              </div>
+              {clientInfo.hasWithholdingTax && (
+                <div className="flex items-center gap-2 pl-6">
+                  <Label className="text-sm text-muted-foreground">จำนวน</Label>
+                  <Input
+                    type="number"
+                    min={0}
+                    max={100}
+                    step={0.01}
+                    value={clientInfo.withholdingTaxRate === 0 ? '' : clientInfo.withholdingTaxRate}
+                    onChange={(e) =>
+                      updateClientInfo({ withholdingTaxRate: parseFloat(e.target.value) || 0 })
+                    }
+                    className="w-24"
+                    placeholder="0"
+                  />
+                  <span className="text-sm text-muted-foreground">%</span>
+                </div>
+              )}
+            </div>
           </>
         ) : (
           <>

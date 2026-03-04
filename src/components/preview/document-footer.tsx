@@ -33,7 +33,7 @@ export function DocumentFooter() {
       {/* Standard footer remarks (Booking / Quotation only) */}
       {showRemarks && (
         <div>
-          <p className="font-bold text-gray-800 mb-1.5">
+          <p contentEditable suppressContentEditableWarning className="font-bold text-gray-800 mb-1.5">
             {t("footerRemarks", lang)}
           </p>
           <div className="space-y-1 text-gray-600 leading-relaxed">
