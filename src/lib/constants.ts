@@ -88,7 +88,7 @@ export const DEFAULT_CLIENT_INFO: ClientInfo = {
 const baseServiceDefaults: Omit<BaseServiceFields, "serviceName"> = {
   hours: 3,
   minutes: 0,
-  setupPoint: "indoor",
+  setupPoint: "Indoor",
   startTime: "18:00",
   endTime: "21:00",
   price: 9900.0,

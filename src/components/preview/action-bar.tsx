@@ -15,7 +15,7 @@ export function ActionBar() {
     // Build default Save-As filename: YYMMDD_Name_Location
     const date = commonInfo.eventDate;
     const dateStr = date
-      ? `${String(date.getFullYear()).slice(-2)}${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}`
+      ? `${String(date.getFullYear()).slice(-2)}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`
       : 'NoDate';
     const name = customerType === 'corporate'
       ? (clientInfo.companyName || 'NoName')
@@ -23,7 +23,7 @@ export function ActionBar() {
     const location = commonInfo.location || 'NoLocation';
 
     const originalTitle = document.title;
-    document.title = `${dateStr}_${name}_${location}`;
+    document.title = `${dateStr}_${location}_${name}`;
 
     // Restore original title once the print dialog is dismissed
     const restore = () => {

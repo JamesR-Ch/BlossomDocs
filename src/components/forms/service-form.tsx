@@ -149,10 +149,19 @@ function StandardServiceForm({
       {/* Setup Point */}
       <div className="space-y-1">
         <Label className="text-xs">จุดตั้ง</Label>
-        <Input
+        <Select
           value={f.setupPoint}
-          onChange={(e) => update({ setupPoint: e.target.value })}
-        />
+          onValueChange={(v) => update({ setupPoint: v })}
+        >
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Indoor">Indoor</SelectItem>
+            <SelectItem value="Outdoor">Outdoor</SelectItem>
+            <SelectItem value="Open-air">Open-air</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       {/* Start Time */}
