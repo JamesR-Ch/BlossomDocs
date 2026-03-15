@@ -19,7 +19,7 @@ export function ActionBar() {
       : 'NoDate';
     const name = customerType === 'corporate'
       ? (clientInfo.companyName || 'NoName')
-      : (clientInfo.customerName || 'NoName');
+      : `คุณ${clientInfo.customerName || 'NoName'}`;
     const location = commonInfo.location || 'NoLocation';
 
     const originalTitle = document.title;
