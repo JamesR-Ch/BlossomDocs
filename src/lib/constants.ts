@@ -20,7 +20,7 @@ import type {
 
 // -- Company Information (printed on documents) --
 export const COMPANY = {
-  name: "Blossom Pixel",
+  name: "Ms. Passkamon Poonsukwattana",
   address: "198/20 หมู่ 8 ต.บางแก้ว อ.บางพลี จ.สมุทรปราการ 10540",
   addressEn: "198/20 Moo 8, Bang Kaeo, Bang Phli, Samut Prakan 10540",
   phone: "093-429-3226",
