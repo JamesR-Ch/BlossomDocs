@@ -2,12 +2,8 @@ import type { NextConfig } from "next";
 import withPWA from "@ducanh2912/next-pwa";
 
 const nextConfig: NextConfig = {
-  // Export as a fully static site — no Vercel Functions, Middleware, or ISR needed.
-  // This eliminates Fast Origin Transfer, ISR reads/writes, and image optimization costs entirely.
-  output: "export",
-
-  // Required with output: 'export' — next/image optimization is skipped;
-  // the logo PNG is served as-is (it's a small static asset, no resize benefit).
+  // API routes (service account → Google Sheets) require a Node.js server,
+  // so output: "export" is removed. Deploy with `next start` or on Vercel.
   images: {
     unoptimized: true,
   },

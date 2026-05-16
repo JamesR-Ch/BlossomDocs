@@ -10,7 +10,6 @@ import {
   FileText, FileCheck, Receipt, ClipboardList, ArrowRight,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { ThemeToggle } from '@/components/theme-toggle';
 import type { CustomerType, EventType, DocumentType } from '@/lib/types';
 
 export default function HomePage() {
@@ -48,11 +47,6 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen bg-linear-to-br from-background via-background to-accent/30">
-      {/* Theme toggle — top right */}
-      <div className="fixed top-4 right-4 z-50">
-        <ThemeToggle />
-      </div>
-
       <div className="mx-auto max-w-2xl px-4 py-12 sm:py-16">
         {/* Logo & Title */}
         <div className="mb-12 flex flex-col items-center gap-4 text-center">
