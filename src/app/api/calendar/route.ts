@@ -44,10 +44,16 @@ export async function GET(req: Request) {
 
   // --- Env check ---
   const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
+  // Prefer base64 key (avoids OpenSSL 3 / Vercel newline issues)
+  // Falls back to raw key with \n handling for local dev
+  const b64Key = process.env.GOOGLE_PRIVATE_KEY_B64 ?? '';
   const rawKey = process.env.GOOGLE_PRIVATE_KEY ?? '';
+  const privateKey = b64Key
+    ? Buffer.from(b64Key, 'base64').toString('utf-8')
+    : rawKey.includes('\\n') ? rawKey.replace(/\\n/g, '\n') : rawKey;
 
-  if (!email || !rawKey) {
-    const detail = `Missing env vars — email: ${email ? 'OK' : 'MISSING'}, key: ${rawKey ? 'OK' : 'MISSING'}`;
+  if (!email || !privateKey) {
+    const detail = `Missing env vars — email: ${email ? 'OK' : 'MISSING'}, key: ${privateKey ? 'OK' : 'MISSING'}`;
     console.error('[calendar]', detail);
     return NextResponse.json({ error: detail }, { status: 500 });
   }
@@ -58,9 +64,6 @@ export async function GET(req: Request) {
 
   const [y, m, d] = dateParam.split('-').map(Number);
   const queryDate = new Date(y, m - 1, d);
-
-  // Handle both Next.js double-quote expansion (real \n) and literal \\n
-  const privateKey = rawKey.includes('\\n') ? rawKey.replace(/\\n/g, '\n') : rawKey;
 
   try {
     // --- Auth ---
