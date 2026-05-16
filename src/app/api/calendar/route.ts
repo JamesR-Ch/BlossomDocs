@@ -42,20 +42,26 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const dateParam = searchParams.get('date');
 
-  // --- Env check ---
-  const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-  // Prefer base64 key (avoids OpenSSL 3 / Vercel newline issues)
-  // Falls back to raw key with \n handling for local dev
-  const b64Key = process.env.GOOGLE_PRIVATE_KEY_B64 ?? '';
-  const rawKey = process.env.GOOGLE_PRIVATE_KEY ?? '';
-  const privateKey = b64Key
-    ? Buffer.from(b64Key, 'base64').toString('utf-8')
-    : rawKey.includes('\\n') ? rawKey.replace(/\\n/g, '\n') : rawKey;
+  // --- Credentials ---
+  // Option A (Vercel): paste the entire service-account JSON as GOOGLE_APPLICATION_CREDENTIALS_JSON
+  // Option B (local): separate GOOGLE_SERVICE_ACCOUNT_EMAIL + GOOGLE_PRIVATE_KEY in .env
+  let credentials: Record<string, string>;
 
-  if (!email || !privateKey) {
-    const detail = `Missing env vars — email: ${email ? 'OK' : 'MISSING'}, key: ${privateKey ? 'OK' : 'MISSING'}`;
-    console.error('[calendar]', detail);
-    return NextResponse.json({ error: detail }, { status: 500 });
+  const credJson = process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON;
+  if (credJson) {
+    try {
+      credentials = JSON.parse(credJson);
+    } catch {
+      return NextResponse.json({ error: 'GOOGLE_APPLICATION_CREDENTIALS_JSON is not valid JSON' }, { status: 500 });
+    }
+  } else {
+    const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ?? '';
+    const rawKey = process.env.GOOGLE_PRIVATE_KEY ?? '';
+    const privateKey = rawKey.includes('\\n') ? rawKey.replace(/\\n/g, '\n') : rawKey;
+    if (!email || !privateKey) {
+      return NextResponse.json({ error: 'Missing GOOGLE_APPLICATION_CREDENTIALS_JSON (or GOOGLE_SERVICE_ACCOUNT_EMAIL + GOOGLE_PRIVATE_KEY)' }, { status: 500 });
+    }
+    credentials = { client_email: email, private_key: privateKey };
   }
 
   if (!dateParam) {
@@ -70,7 +76,7 @@ export async function GET(req: Request) {
     let auth: InstanceType<typeof google.auth.GoogleAuth>;
     try {
       auth = new google.auth.GoogleAuth({
-        credentials: { client_email: email, private_key: privateKey },
+        credentials,
         scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
       });
     } catch (authErr) {
