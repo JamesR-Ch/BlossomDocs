@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Prompt } from 'next/font/google';
-import { Navbar } from '@/components/navbar';
+import { NavbarWrapper } from '@/components/navbar-wrapper';
 import { PwaUpdateBanner } from '@/components/pwa-update-banner';
 import './globals.css';
 
@@ -25,10 +25,9 @@ export default function RootLayout({
   return (
     <html lang="th" suppressHydrationWarning>
       <body className={`${prompt.variable} font-sans antialiased`}>
-        <Navbar />
-        <div className="pt-14 print:pt-0">
+        <NavbarWrapper>
           {children}
-        </div>
+        </NavbarWrapper>
         <PwaUpdateBanner />
       </body>
     </html>
