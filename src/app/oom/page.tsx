@@ -16,7 +16,7 @@ const COLUMNS: { key: keyof OomEvent; label: string }[] = [
   { key: 'size',       label: 'ขนาด'     },
   { key: 'bundle',     label: 'Bundle'   },
   { key: 'setup',      label: 'จุดตั้ง'  },
-  { key: 'background', label: 'พื้นพลัง' },
+  { key: 'background', label: 'พื้นหลัง' },
   { key: 'process',    label: 'Process'  },
 ];
 
